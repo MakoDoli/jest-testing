@@ -8,7 +8,7 @@ describe("Buttons Component", () => {
     expect(screen.getByText("lightcoral")).toBeInTheDocument();
     expect(screen.getByText("mediumseagreen")).toBeInTheDocument();
     expect(screen.getByText("lightseagreen")).toBeInTheDocument();
-    expect(screen.getByText("party pooper")).toBeInTheDocument();
+    expect(screen.getByText("?")).toBeInTheDocument();
   });
 
   it("changes background color when color buttons are clicked", () => {
@@ -28,7 +28,7 @@ describe("Buttons Component", () => {
   it("disables color buttons and resets background when party pooper is clicked", () => {
     render(<Buttons />);
     const container = screen.getByTestId("container");
-    const partyPooperButton = screen.getByText("party pooper");
+    const partyPooperButton = screen.getByText("?");
 
     fireEvent.click(screen.getByText("lightcoral"));
     expect(container.style.backgroundColor).toBe("lightcoral");

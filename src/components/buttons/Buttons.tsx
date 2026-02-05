@@ -27,7 +27,7 @@ export default function Buttons() {
           setIsDisabled(!isDisabled);
         }}
       >
-        party pooper
+        {isDisabled ? 'party pooper' : '?'}
       </button>
     </div>
   );
