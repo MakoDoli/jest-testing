@@ -39,7 +39,9 @@ describe("Buttons Component", () => {
     expect(screen.getByText("mediumseagreen")).toHaveProperty("disabled", true);
     expect(screen.getByText("lightseagreen")).toHaveProperty("disabled", true);
 
-    fireEvent.click(partyPooperButton);
+    // Now "party pooper" text appears after clicking
+    const partyPooperButtonActive = screen.getByText("party pooper");
+    fireEvent.click(partyPooperButtonActive);
     expect(screen.getByText("lightcoral")).toHaveProperty("disabled", false);
     expect(screen.getByText("mediumseagreen")).toHaveProperty(
       "disabled",
