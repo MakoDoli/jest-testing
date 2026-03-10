@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReduxButton from "./ReduxButton";
 
 const lightColors = ["lightcoral", "mediumseagreen", "lightseagreen"];
 const darkColors = ["#8B4513", "#2F4F4F", "#483D8B"];
@@ -14,7 +15,7 @@ export default function Buttons() {
 
   return (
     <div
-      className="relative flex justify-center items-center gap-4 w-full h-screen"
+      className="relative flex flex-col justify-center items-center gap-4  w-full h-screen"
       style={{ backgroundColor: color === "gray" ? defaultBg : color }}
       data-testid="container"
     >
@@ -26,9 +27,9 @@ export default function Buttons() {
             setColor(isDarkMode ? "gray" : "#1a1a1a");
           }}
           className="w-12 h-12 flex items-center justify-center rounded-full shadow-lg transition-all hover:scale-110"
-          style={{ 
+          style={{
             backgroundColor: isDarkMode ? "#f0f0f0" : "#2a2a2a",
-            color: isDarkMode ? "#2a2a2a" : "#f0f0f0"
+            color: isDarkMode ? "#2a2a2a" : "#f0f0f0",
           }}
           aria-label="Toggle theme"
         >
@@ -68,31 +69,36 @@ export default function Buttons() {
         </button>
       </div>
 
-      {/* Color Buttons */}
-      {colors.map((colorValue, index) => (
+      <ReduxButton />
+      <div className="flex gap-4 justify-center items-center">
+        {/* Color Buttons */}
+        {colors.map((colorValue, index) => (
+          <button
+            key={index}
+            style={{
+              backgroundColor: !isDisabled ? colorValue : disabledColor,
+            }}
+            className="w-32 h-10 shadow-xl rounded-lg disabled:bg-gray-400 disabled:text-gray-700 transition-colors"
+            disabled={isDisabled}
+            onClick={() => setColor(colorValue)}
+          >
+            {isDarkMode ? `dark ${index + 1}` : lightColors[index]}
+          </button>
+        ))}
         <button
-          key={index}
-          style={{ backgroundColor: !isDisabled ? colorValue : disabledColor }}
-          className="w-32 h-10 shadow-xl rounded-lg disabled:bg-gray-400 disabled:text-gray-700 transition-colors"
-          disabled={isDisabled}
-          onClick={() => setColor(colorValue)}
+          className="w-32 h-10 shadow-xl rounded-lg transition-colors"
+          style={{
+            backgroundColor: isDarkMode ? "#663300" : "#92400e",
+            color: "#ffffff",
+          }}
+          onClick={() => {
+            setColor(defaultBg);
+            setIsDisabled(!isDisabled);
+          }}
         >
-          {isDarkMode ? `dark ${index + 1}` : (lightColors[index])}
+          {isDisabled ? "party pooper" : "?"}
         </button>
-      ))}
-      <button
-        className="w-32 h-10 shadow-xl rounded-lg transition-colors"
-        style={{
-          backgroundColor: isDarkMode ? "#663300" : "#92400e",
-          color: "#ffffff"
-        }}
-        onClick={() => {
-          setColor(defaultBg);
-          setIsDisabled(!isDisabled);
-        }}
-      >
-        {isDisabled ? 'party pooper' : '?'}
-      </button>
+      </div>
     </div>
   );
 }
